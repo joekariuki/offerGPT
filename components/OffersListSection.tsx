@@ -4,6 +4,7 @@ import { Offer } from "@/server/db/schema";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import OfferList from "./OfferList";
+import CreateOfferModal from "./CreateOfferModal";
 
 interface OffersListSectionProps {
   initialOffers: Offer[];
@@ -11,8 +12,15 @@ interface OffersListSectionProps {
 
 function OffersListSection({ initialOffers }: OffersListSectionProps) {
   const [offers] = useState<Offer[]>(initialOffers);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleNewOfferClick = () => {};
+  const handleNewOfferClick = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -25,7 +33,8 @@ function OffersListSection({ initialOffers }: OffersListSectionProps) {
       </header>
       {/* Offer list: shows a list of all created offers */}
       <OfferList offers={offers} />
-      {/* TODO: Add create offer modal */}
+      {/* Create offer modal */}
+      <CreateOfferModal isVisible={isModalVisible} onClose={handleCloseModal} />
     </div>
   );
 }
