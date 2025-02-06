@@ -5,8 +5,10 @@ import { OFFER_MARKDOWN } from "@/lib/constants";
 import { Offer } from "@/server/db/schema";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { Loader2 } from "lucide-react";
+import { Input } from "./ui/input";
+import { Loader2, Pencil, Check, X } from "lucide-react";
 import Chat from "./Chat";
+import { Label } from "./ui/label";
 
 interface OfferDetailProps {
   offer: Offer;
@@ -15,6 +17,11 @@ interface OfferDetailProps {
 function OfferDetail({ offer }: OfferDetailProps) {
   const [offerContent, setOfferContent] = useState(
     offer.content || OFFER_MARKDOWN
+  );
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedClientName, setEditedClientName] = useState(offer.clientName);
+  const [editedClientAddress, setEditedClientAddress] = useState(
+    offer.clientAddress
   );
 
   const [isChatLoading, setIsChatLoading] = useState(false);
@@ -35,8 +42,8 @@ function OfferDetail({ offer }: OfferDetailProps) {
         body: JSON.stringify({
           id: offer.id,
           content: offerContent,
-          clientName: offer.clientName,
-          clientAddress: offer.clientAddress,
+          clientName: editedClientName,
+          clientAddress: editedClientAddress,
         }),
       });
 
@@ -44,6 +51,7 @@ function OfferDetail({ offer }: OfferDetailProps) {
         throw new Error("Failed to save offer");
       }
 
+      setIsEditing(false);
       toast({
         title: "Offer saved successfully",
         description: "Your changes have been saved.",
@@ -57,7 +65,20 @@ function OfferDetail({ offer }: OfferDetailProps) {
       });
     } finally {
       setIsSaving(false);
+      setIsEditing(false);
     }
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditedClientName(offer.clientName);
+    setEditedClientAddress(offer.clientAddress);
+  };
+
+  const handleEditSave = () => {
+    setEditedClientName(editedClientName);
+    setEditedClientAddress(editedClientAddress);
+    setIsEditing(false);
   };
 
   const handleExport = async () => {
@@ -81,22 +102,87 @@ function OfferDetail({ offer }: OfferDetailProps) {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold">
-          {[offer.clientName, offer.clientAddress].join(" - ") ||
-            "Untitled Offer"}
-        </h1>
+        {isEditing ? (
+          <div className="flex items-center  justify-center gap-4">
+            <div className="space-x-4 flex flex-row items-center">
+              <div className="w-full flex flex-col gap-2">
+                <Label htmlFor="clientName" className="text-xs">
+                  Client Name
+                </Label>
+                <Input
+                  id="clientName"
+                  value={editedClientName}
+                  onChange={(e) => setEditedClientName(e.target.value)}
+                  disabled={isSaving}
+                  placeholder="Client Name"
+                  className="text-lg"
+                />
+              </div>
+
+              <div className="w-full flex flex-col gap-2">
+                <Label htmlFor="clientAddress" className="text-xs">
+                  Client Address
+                </Label>
+                <Input
+                  id="clientAddress"
+                  value={editedClientAddress}
+                  onChange={(e) => setEditedClientAddress(e.target.value)}
+                  disabled={isSaving}
+                  placeholder="Client Address"
+                  className="text-lg"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 mt-4">
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={handleEditSave}
+                disabled={isSaving}
+              >
+                {isSaving ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Check className="h-4 w-4" />
+                )}
+              </Button>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={handleCancelEdit}
+                disabled={isSaving}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <h1 className="text-2xl font-semibold">
+              {[editedClientName, editedClientAddress].join(" - ") ||
+                "Untitled Offer"}
+            </h1>
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => setIsEditing(true)}
+            >
+              <Pencil className="h-4 w-4" />
+            </Button>
+          </div>
+        )}
       </div>
 
       <div>
         <Button onClick={handleSave} className="mr-2" disabled={isSaving}>
-          {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           Save
+          {isSaving ? <Loader2 className="ml-1 h-4 w-4 animate-spin" /> : null}
         </Button>
         <Button onClick={handleExport} variant="outline" disabled={isExporting}>
-          {isExporting ? (
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-          ) : null}
           Export
+          {isExporting ? (
+            <Loader2 className="ml-1 h-4 w-4 animate-spin" />
+          ) : null}
         </Button>
       </div>
 
