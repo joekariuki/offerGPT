@@ -25,7 +25,9 @@ function OffersListSection({ initialOffers }: OffersListSectionProps) {
   return (
     <div className="w-full max-w-3xl mx-auto">
       <header className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold text-primary">AI Offers</h1>
+        <h1 className="text-2xl font-semibold text-primary">
+          Create a new offer
+        </h1>
         {/* New offer button */}
         <Button size="lg" onClick={handleNewOfferClick}>
           New
