@@ -7,7 +7,7 @@ import React from "react";
 export default async function OfferDetailPage({
   params,
 }: {
-  params: { offerId: string };
+  params: Promise<{ offerId: string }>;
 }) {
   const { userId } = await auth();
 
@@ -15,9 +15,11 @@ export default async function OfferDetailPage({
     throw new Error("User not authenticated");
   }
 
-  const offer = await getOfferById(params.offerId);
+  // Await the params to get the offerId
+  const { offerId } = await params;
 
-  console.log("offer", offer);
+  // Fetch the offer by ID
+  const offer = await getOfferById(offerId);
 
   if (!offer) {
     notFound();
