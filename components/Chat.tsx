@@ -114,7 +114,7 @@ export default function Chat({
   useEffect(() => {
     // Handle new messages from the chat
     handleNewMessage(messages);
-  }, [messages]);
+  }, [messages, handleNewMessage]);
 
   useEffect(() => {
     // Update the loading state of the chat
@@ -125,7 +125,7 @@ export default function Chat({
     // Update the latest offer content when the offer content changes
     console.log("Updating latest offer:", latestOffer);
     setLatestOffer(offerContent);
-  }, [offerContent]);
+  }, [offerContent, latestOffer]);
 
   /**
    * Handles the form submission of the chat.
