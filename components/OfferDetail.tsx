@@ -9,6 +9,7 @@ import { Input } from "./ui/input";
 import { Loader2, Pencil, Check, X } from "lucide-react";
 import Chat from "./Chat";
 import { Label } from "./ui/label";
+import OfferPreview from "./OfferPreview";
 
 interface OfferDetailProps {
   offer: Offer;
@@ -100,8 +101,8 @@ function OfferDetail({ offer }: OfferDetailProps) {
   const isLoading = isChatLoading || isFileUploading;
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-6">
+    <div className="container mx-auto p-4 space-y-6">
+      <div className="flex justify-between items-center">
         {isEditing ? (
           <div className="flex items-center  justify-center gap-4">
             <div className="space-x-4 flex flex-row items-center">
@@ -171,19 +172,24 @@ function OfferDetail({ offer }: OfferDetailProps) {
             </Button>
           </div>
         )}
-      </div>
-
-      <div>
-        <Button onClick={handleSave} className="mr-2" disabled={isSaving}>
-          Save
-          {isSaving ? <Loader2 className="ml-1 h-4 w-4 animate-spin" /> : null}
-        </Button>
-        <Button onClick={handleExport} variant="outline" disabled={isExporting}>
-          Export
-          {isExporting ? (
-            <Loader2 className="ml-1 h-4 w-4 animate-spin" />
-          ) : null}
-        </Button>
+        <div>
+          <Button onClick={handleSave} className="mr-2" disabled={isSaving}>
+            Save
+            {isSaving ? (
+              <Loader2 className="ml-1 h-4 w-4 animate-spin" />
+            ) : null}
+          </Button>
+          <Button
+            onClick={handleExport}
+            variant="outline"
+            disabled={isExporting}
+          >
+            Export
+            {isExporting ? (
+              <Loader2 className="ml-1 h-4 w-4 animate-spin" />
+            ) : null}
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-6">
@@ -193,7 +199,11 @@ function OfferDetail({ offer }: OfferDetailProps) {
             onOfferUpdate={handleOfferUpdate}
             onLoadingChange={handleChatLoadingChange}
           />
+          {/* TODO: File upload component */}
+
         </div>
+        
+        <OfferPreview content={offerContent} isLoading={isLoading} />
       </div>
     </div>
   );
