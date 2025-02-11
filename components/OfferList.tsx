@@ -23,8 +23,8 @@ function OfferList({ offers }: OfferListProps) {
                 </span>
               </div>
               {offer.content && (
-                <span className="ml-2 px-2 py-1 bg-primary text-white rounded-full text-sm">
-                  Generated <Sparkles />
+                <span className="ml-2 px-2 py-1 bg-primary/80 text-white rounded-full text-sm flex flex-row items-center space-x-2">
+                  Generated <Sparkles className="h-4 w-4 ml-1" />
                 </span>
               )}
             </div>
