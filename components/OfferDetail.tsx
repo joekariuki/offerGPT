@@ -10,6 +10,7 @@ import { Loader2, Pencil, Check, X } from "lucide-react";
 import Chat from "./Chat";
 import { Label } from "./ui/label";
 import OfferPreview from "./OfferPreview";
+import FileUpload from "./FileUpload";
 
 interface OfferDetailProps {
   offer: Offer;
@@ -199,10 +200,14 @@ function OfferDetail({ offer }: OfferDetailProps) {
             onOfferUpdate={handleOfferUpdate}
             onLoadingChange={handleChatLoadingChange}
           />
-          {/* TODO: File upload component */}
-
+          {/* File upload component */}
+          <FileUpload
+            onAutoGenerate={handleOfferUpdate}
+            currentOffer={offerContent}
+            onLoadingChange={handleFileUploadingChange}
+          />
         </div>
-        
+
         <OfferPreview content={offerContent} isLoading={isLoading} />
       </div>
     </div>
