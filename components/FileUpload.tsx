@@ -1,3 +1,5 @@
+// TODO: Remove this eslint-disable below
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useToast } from "@/hooks/use-toast";
@@ -65,6 +67,7 @@ function FileUpload({
           const content = await file.text();
           newFiles.push({ name: file.name, content });
         } catch (error) {
+          console.error("Error reading file:", error);
           toast({
             title: "Error reading file",
             description: `Failed to read ${file.name}.`,
@@ -76,6 +79,7 @@ function FileUpload({
     }
   };
 
+  // TODO: Implement remove file
   const handleRemoveFile = (fileName: string) => {
     setUploadedFiles((prevFiles) =>
       prevFiles.filter((file) => file.name !== fileName)
