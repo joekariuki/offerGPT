@@ -29,9 +29,6 @@ export async function POST(request: Request) {
           currentOffer?: string;
           feedback: string;
         }) => {
-          console.log("Updating offer with feedback:", feedback);
-          console.log("Current offer:", currentOffer);
-
           try {
             const prompt = `
             You are an AI assistant specializing in updating real estate offers based on user feedback.
