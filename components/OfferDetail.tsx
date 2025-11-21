@@ -6,7 +6,7 @@ import { Offer } from "@/server/db/schema";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Loader2, Pencil, Check, X, Download } from "lucide-react";
+import { Loader2, Pencil, Check, X, Download, Save } from "lucide-react";
 import Chat from "./Chat";
 import { Label } from "./ui/label";
 import OfferPreview from "./OfferPreview";
@@ -228,12 +228,14 @@ function OfferDetail({ offer }: OfferDetailProps) {
             </Button>
           </div>
         )}
-        <div>
-          <Button onClick={handleSave} className="mr-2" disabled={isSaving}>
-            Save
+        <div className="flex items-center gap-2">
+          <Button onClick={handleSave} disabled={isSaving}>
             {isSaving ? (
-              <Loader2 className="ml-1 h-4 w-4 animate-spin" />
-            ) : null}
+              <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+            ) : (
+              <Save className="mr-1 h-4 w-4" />
+            )}
+            Save
           </Button>
           <Button
             onClick={handleExport}
