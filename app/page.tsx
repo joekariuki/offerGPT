@@ -10,9 +10,9 @@ export default function Home() {
             <br />
             <span className="text-primary">Real Estate Offers</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto">
-            Create professional, personalized real estate offers in seconds with
-            the power of artificial intelligence.
+          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto text-balance">
+            Create professional, personalized real estate offers in seconds
+            using AI.
           </p>
           <div className="pt-4">
             <GenerateOfferButton />
