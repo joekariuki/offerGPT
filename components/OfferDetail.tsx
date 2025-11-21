@@ -6,7 +6,7 @@ import { Offer } from "@/server/db/schema";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Loader2, Pencil, Check, X } from "lucide-react";
+import { Loader2, Pencil, Check, X, Download } from "lucide-react";
 import Chat from "./Chat";
 import { Label } from "./ui/label";
 import OfferPreview from "./OfferPreview";
@@ -83,8 +83,63 @@ function OfferDetail({ offer }: OfferDetailProps) {
     setIsEditing(false);
   };
 
-  const handleExport = async () => {
+  const handleExport = () => {
     setIsExporting(true);
+    try {
+      // Ensure content is never empty - use default template if needed
+      const contentToExport = offerContent.trim() || OFFER_MARKDOWN;
+
+      // Create the markdown content with header
+      let markdownContent = "";
+
+      if (editedClientName || editedClientAddress) {
+        markdownContent += `# ${editedClientName || "Untitled Offer"}\n\n`;
+        if (editedClientAddress) {
+          markdownContent += `${editedClientAddress}\n\n`;
+        }
+        markdownContent += "---\n\n";
+      }
+
+      markdownContent += contentToExport;
+
+      // Create a blob with the markdown content
+      const blob = new Blob([markdownContent], { type: "text/markdown" });
+
+      // Create a download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+
+      const filename = editedClientName
+        ? `${editedClientName
+            .replace(/[^a-z0-9]/gi, "_")
+            .toLowerCase()}_offer.md`
+        : "offer.md";
+
+      link.download = filename;
+
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      toast({
+        title: "Markdown exported successfully",
+        description: "Your offer has been exported as a markdown file.",
+      });
+    } catch (error) {
+      console.error("Error exporting markdown:", error);
+      toast({
+        title: "Error exporting markdown",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const handleOfferUpdate = (updatedOffer: string) => {
@@ -185,10 +240,12 @@ function OfferDetail({ offer }: OfferDetailProps) {
             variant="outline"
             disabled={isExporting}
           >
-            Export
             {isExporting ? (
-              <Loader2 className="ml-1 h-4 w-4 animate-spin" />
-            ) : null}
+              <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+            ) : (
+              <Download className="mr-1 h-4 w-4" />
+            )}
+            Download Markdown
           </Button>
         </div>
       </div>
