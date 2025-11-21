@@ -10,6 +10,12 @@
 
 </div>
 
+<div align="center">
+
+![Demo](public/demo.gif)
+
+</div>
+
 ## Tech Stack
 
 - **Next.js 15** with App Router for modern web development
