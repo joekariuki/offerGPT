@@ -25,6 +25,12 @@ export default function Navbar() {
             </Link>
           </SignedOut>
           <SignedIn>
+            <Link
+              href="/offers"
+              className="hover:text-red-200 transition-colors"
+            >
+              Offers
+            </Link>
             <UserButton />
           </SignedIn>
         </div>
