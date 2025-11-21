@@ -1,13 +1,6 @@
 <div align="center">
-
-    <h1>offerGPT</h1>
-
-    <p>
-
-      Generate personalized real estate offers in seconds using AI
-
-    </p>
-
+  <h1>offerGPT</h1>
+  <p>Generate personalized real estate offers in seconds using AI</p>
 </div>
 
 <div align="center">
@@ -40,7 +33,7 @@
 
 3. Users can interact with an AI chat assistant to refine and update the offer
 
-4. Users can upload documents (PDF, DOCX, TXT, HTML, or MD files up to 5MB) to automatically extract information and generate or update offers. The AI analyzes the uploaded files and populates the offer with relevant details from the documents.
+4. Users can upload documents (PDF, DOCX, TXT, HTML, or MD files up to 5MB) to automatically extract information and generate or update offers.
 
 5. Offers can be edited, saved and managed through an intuitive interface
 
