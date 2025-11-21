@@ -12,8 +12,8 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "AI Offers",
-  description: "Real Estate AI Offer Generator",
+  title: "offerGPT",
+  description: "Generate real estate offers using AI in seconds",
 };
 
 export default function RootLayout({
