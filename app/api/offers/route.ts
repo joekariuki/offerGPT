@@ -86,8 +86,6 @@ export async function PATCH(request: Request) {
   // Parse the request body
   const body = await request.json();
 
-  console.log("Request body:", body);
-
   // Validate the request body
   const parsedUpdatedOffer = updateOfferSchema.safeParse(body);
 
@@ -101,13 +99,6 @@ export async function PATCH(request: Request) {
 
   const { id, content, clientName, clientAddress } = parsedUpdatedOffer.data;
 
-  console.log("Parsed updated offer:", {
-    id,
-    content,
-    clientName,
-    clientAddress,
-  });
-
   const updatedOffer = await db
     .update(offersTable)
     .set({
@@ -119,11 +110,8 @@ export async function PATCH(request: Request) {
     .returning();
 
   if (updatedOffer.length === 0) {
-    console.log("Offer not found:", id);
     return new NextResponse("Offer not found", { status: 404 });
   }
-
-  console.log("Updated offer:", updatedOffer[0]);
 
   return NextResponse.json(updatedOffer[0]);
 }

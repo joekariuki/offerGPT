@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+    <h1>offerGPT</h1>
 
-First, run the development server:
+    <p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+      Generate personalized real estate offers in seconds using AI
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    </p>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+</div>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- **Next.js 15** with App Router for modern web development
 
-To learn more about Next.js, take a look at the following resources:
+- **OpenAI** (GPT-4o & GPT-4-turbo) for AI-powered offer generation and editing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Clerk** for authentication
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Drizzle ORM** and **Neon** (PostgreSQL) for database management
 
-## Deploy on Vercel
+- **Shadcn UI** and **Radix UI** for beautiful, accessible components
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Tailwind CSS** for styling
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Vercel AI SDK** for streaming AI responses
+
+## How it works
+
+1. User creates a new offer with client name and address
+
+2. The app generates a professional real estate offer using AI
+
+3. Users can interact with an AI chat assistant to refine and update the offer
+
+4. Offers can be edited, saved and managed through an intuitive interface
+
+5. Offers can be exported as a PDF or copied as markdown text
+
+6. Users can view all their offers in a centralized dashboard
+
+## Cloning & running
+
+1. Fork or clone the repo
+
+2. Create accounts at [OpenAI](https://openai.com/) for AI capabilities
+
+3. Set up Clerk for authentication ([Clerk.dev](https://clerk.dev/))
+
+4. Create a Neon database ([Neon.tech](https://neon.tech/)) for PostgreSQL
+
+5. Create a `.env` file (use `env.example` for reference) and add your API keys
+
+6. Run `bun install` (or `npm install`) and `bun dev` (or `npm run dev`) to install dependencies and start the app locally
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
