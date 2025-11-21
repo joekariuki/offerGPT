@@ -34,11 +34,13 @@
 
 3. Users can interact with an AI chat assistant to refine and update the offer
 
-4. Offers can be edited, saved and managed through an intuitive interface
+4. Users can upload documents (PDF, DOCX, TXT, HTML, or MD files up to 5MB) to automatically extract information and generate or update offers. The AI analyzes the uploaded files and populates the offer with relevant details from the documents.
 
-5. Offers can be exported as a PDF or copied as markdown text
+5. Offers can be edited, saved and managed through an intuitive interface
 
-6. Users can view all their offers in a centralized dashboard
+6. Offers can be exported as a PDF or copied as markdown text
+
+7. Users can view all their offers in a centralized dashboard
 
 ## Cloning & running
 
