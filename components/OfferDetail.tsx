@@ -6,7 +6,7 @@ import { Offer } from "@/server/db/schema";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Loader2, Pencil, Check, X, Download, Save } from "lucide-react";
+import { Loader2, Pencil, Check, X, Download, Save, Copy } from "lucide-react";
 import Chat from "./Chat";
 import { Label } from "./ui/label";
 import OfferPreview from "./OfferPreview";
@@ -30,6 +30,7 @@ function OfferDetail({ offer }: OfferDetailProps) {
   const [isFileUploading, setIsFileUploading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [isCopying, setIsCopying] = useState(false);
 
   const { toast } = useToast();
 
@@ -81,6 +82,44 @@ function OfferDetail({ offer }: OfferDetailProps) {
     setEditedClientName(editedClientName);
     setEditedClientAddress(editedClientAddress);
     setIsEditing(false);
+  };
+
+  const handleCopy = async () => {
+    setIsCopying(true);
+    try {
+      // Ensure content is never empty - use default template if needed
+      const contentToCopy = offerContent.trim() || OFFER_MARKDOWN;
+
+      // Create the markdown content with header
+      let markdownContent = "";
+
+      if (editedClientName || editedClientAddress) {
+        markdownContent += `# ${editedClientName || "Untitled Offer"}\n\n`;
+        if (editedClientAddress) {
+          markdownContent += `${editedClientAddress}\n\n`;
+        }
+        markdownContent += "---\n\n";
+      }
+
+      markdownContent += contentToCopy;
+
+      // Copy to clipboard
+      await navigator.clipboard.writeText(markdownContent);
+
+      toast({
+        title: "Offer copied to clipboard",
+        description: "The offer text has been copied to your clipboard.",
+      });
+    } catch (error) {
+      console.error("Error copying to clipboard:", error);
+      toast({
+        title: "Error copying to clipboard",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsCopying(false);
+    }
   };
 
   const handleExport = () => {
@@ -236,6 +275,14 @@ function OfferDetail({ offer }: OfferDetailProps) {
               <Save className="mr-1 h-4 w-4" />
             )}
             Save
+          </Button>
+          <Button onClick={handleCopy} variant="outline" disabled={isCopying}>
+            {isCopying ? (
+              <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+            ) : (
+              <Copy className="mr-1 h-4 w-4" />
+            )}
+            Copy
           </Button>
           <Button
             onClick={handleExport}
