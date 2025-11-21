@@ -12,7 +12,7 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "offerGPT",
+  title: "offerGPT | AI Real Estate Offers Generator",
   description: "Generate real estate offers using AI in seconds",
 };
 
